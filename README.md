@@ -1,121 +1,117 @@
 # RAG Document Processing System
 
-A robust Retrieval-Augmented Generation (RAG) system with advanced document processing capabilities and comprehensive testing infrastructure.
+A powerful document processing system with Retrieval-Augmented Generation (RAG) capabilities, built with FastAPI backend and Streamlit frontend.
 
 ## Features
 
-- 📄 Multi-format Document Processing
-  - PDF support with text extraction
-  - OCR capabilities for image-based content
-  - Intelligent chunking system
+- 📄 Document Processing
+  - PDF and text file support
+  - Intelligent text chunking
+  - Real-time processing feedback
+  - Progress tracking
 
-- 🤖 Advanced AI Integration
-  - Multi-provider support (OpenAI, Mistral, Anthropic)
-  - Vector embedding generation
-  - Semantic search capabilities
+- 🤖 AI Integration
+  - Mistral AI powered
+  - Vector embeddings for semantic search
+  - Context-aware responses
+  - Smart caching system
 
 - 💻 User Interface
-  - Streamlit web interface
-  - Animated loading indicators
-  - Real-time processing feedback
+  - Clean Streamlit interface
   - Interactive Q&A system
+  - Real-time processing feedback
+  - Document management
 
-- ⚙️ Technical Features
-  - Async document processing
-  - Comprehensive test suite
-  - Error handling and recovery
-  - Progress tracking
-  - Caching system for embeddings
+## Quick Start
+
+1. Click the "Run" button to start both the FastAPI backend and Streamlit frontend
+2. Wait for all services to initialize (this may take a few moments)
+3. Access the web interface through the browser window
+
+## Usage Guide
+
+### Document Upload
+1. Navigate to the "Document Upload" section
+2. Click "Browse files" or drag & drop your documents
+3. Supported formats: PDF, TXT
+4. Wait for processing to complete
+5. You'll see progress indicators and processing stats
+
+### Asking Questions
+1. Go to the "Ask Questions" section
+2. Type your question in the input box
+3. Click "Get Answer"
+4. View the response and relevant source contexts
+
+### System Status
+- View loaded documents in the sidebar
+- Monitor processing status
+- Clear all documents if needed
+
+## Technical Details
+
+The system runs two services:
+
+1. FastAPI Backend (Port 8002)
+   - Handles document processing
+   - Manages embeddings
+   - Provides RAG capabilities
+
+2. Streamlit Frontend (Port 8501)
+   - User interface
+   - Document upload
+   - Q&A interface
+
+## Configuration
+
+The system uses Mistral AI for:
+- Text embeddings (mistral-embed)
+- Language model responses (mistral-large-latest)
+
+Default settings:
+- Chunk size: 2000 tokens
+- Chunk overlap: 400 tokens
+- Vector dimension: 1024
+- Max batch size: 5
 
 ## Project Structure
-
 ```
 ├── frontend/           # Frontend components
-│   ├── main.py        # Streamlit web interface
-│   ├── assets/        # Static assets
-│   └── __init__.py    # Frontend package initialization
-│
-├── backend/           # Backend services
-│   ├── api/          # API endpoints
-│   │   ├── cleanup_port.py
-│   │   ├── document_processor_service.py
-│   │   └── __init__.py
-│   ├── processors/   # Core processing modules
-│   │   ├── document_processor.py
-│   │   ├── pdf_processor.py
-│   │   └── __init__.py
-│   ├── storage/     # Storage related modules
-│   │   ├── vector_store.py
-│   │   ├── cache_manager.py
-│   │   └── __init__.py
-│   ├── tests/       # Test suite
-│   │   └── test_pdf_processor.py
-│   ├── __init__.py  # Backend package initialization
-│   ├── config.py    # Configuration settings
-│   └── rag_engine.py # RAG system core
-│   └── __pycache__/ # Python cache files
-│
-├── .git/            # Git repository data
-├── .pytest_cache/   # Pytest cache directory
-├── .replit          # Replit configuration
-├── .streamlit/      # Streamlit configuration
-│   └── config.toml  # Streamlit server settings
-├── pyproject.toml   # Project dependencies
-└── .gitignore      # Git ignore rules
+│   └── main.py        # Streamlit interface
+├── backend/           
+│   ├── api/           # API endpoints
+│   ├── processors/    # Document processing
+│   ├── storage/       # Vector storage
+│   ├── config.py      # Configuration
+│   └── rag_engine.py  # RAG system core
 ```
 
-## Setup and Installation
+## Troubleshooting
 
-1. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+1. If the interface doesn't load:
+   - Check if both services are running
+   - Click the "Run" button again
 
-2. Set up environment variables:
-```bash
-MISTRAL_API_KEY=your_key_here
-```
+2. If document processing fails:
+   - Check file format (PDF/TXT only)
+   - Try with a smaller document first
 
-3. Start the services:
-```bash
-# Start the FastAPI backend
-python backend/api/document_processor_service.py
+3. If questions aren't answered:
+   - Ensure documents are uploaded
+   - Check if processing completed
 
-# Start the Streamlit frontend
-streamlit run frontend/main.py
-```
+## Performance Tips
 
-## Usage
+- Large PDF files (>100 pages) are processed in sections
+- Multiple documents can be processed in parallel
+- Results are cached for faster responses
+- Clear cache if memory usage is high
 
-1. Upload Documents:
-   - Support for PDF and text files
-   - Real-time processing feedback
-   - Automatic chunking and embedding
+## System Requirements
 
-2. Ask Questions:
-   - Natural language queries
-   - Context-aware responses
-   - Source attribution
+The system runs automatically on Replit with:
+- Python 3.11+
+- Required packages from pyproject.toml
+- Mistral AI API integration
 
-## Testing
-
-Run the test suite:
-```bash
-pytest backend/tests/
-```
-
-Test coverage includes:
-- Document processing API
-- PDF processing
-- Vector store operations
-- Cache management
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+Just click "Run" and everything will be set up automatically!
