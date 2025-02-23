@@ -101,7 +101,6 @@ Default settings:
 
 1. If the interface doesn't load:
    - Check if both services are running
-   - Click the "Run" button again
 
 2. If document processing fails:
    - Check file format (PDF/TXT only)
@@ -124,5 +123,3 @@ The system runs automatically on Replit with:
 - Python 3.11+
 - Required packages from pyproject.toml
 - Mistral AI API integration
-
-Just click "Run" and everything will be set up automatically!
