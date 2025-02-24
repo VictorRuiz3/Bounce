@@ -4,14 +4,16 @@ import time
 import os
 
 def launch_services():
-    # Get the project root directory
+    # Get the project root directory and add to PYTHONPATH
     project_root = os.path.dirname(os.path.abspath(__file__))
+    os.environ["PYTHONPATH"] = project_root
     
     try:
         # Start FastAPI backend
         backend_process = subprocess.Popen(
             [sys.executable, "backend/api/document_processor_service.py"],
-            cwd=project_root
+            cwd=project_root,
+            env={**os.environ, "PYTHONPATH": project_root}  # Pass PYTHONPATH to subprocess
         )
         print("Started FastAPI backend service...")
         
@@ -21,7 +23,8 @@ def launch_services():
         # Start Streamlit frontend
         frontend_process = subprocess.Popen(
             [sys.executable, "-m", "streamlit", "run", "frontend/main.py"],
-            cwd=project_root
+            cwd=project_root,
+            env={**os.environ, "PYTHONPATH": project_root}  # Pass PYTHONPATH to subprocess
         )
         print("Started Streamlit frontend...")
         
