@@ -1,42 +1,41 @@
-
 import subprocess
 import sys
-import os
 import time
-import webbrowser
-from threading import Thread
+import os
 
-def start_fastapi():
-    os.environ["PYTHONPATH"] = os.path.dirname(os.path.abspath(__file__))
-    subprocess.run([
-        sys.executable,
-        "backend/api/document_processor_service.py"
-    ])
-
-def start_streamlit():
-    os.environ["PYTHONPATH"] = os.path.dirname(os.path.abspath(__file__))
-    subprocess.run([
-        sys.executable,
-        "-m", "streamlit",
-        "run",
-        "frontend/main.py",
-        "--server.port=5000",
-        "--server.address=0.0.0.0"
-    ])
-
-def main():
-    print("Starting RAG Document Processing System...")
+def launch_services():
+    # Get the project root directory
+    project_root = os.path.dirname(os.path.abspath(__file__))
     
-    # Start FastAPI in a separate thread
-    fastapi_thread = Thread(target=start_fastapi)
-    fastapi_thread.daemon = True
-    fastapi_thread.start()
-    
-    print("Backend server starting on port 8002...")
-    time.sleep(2)  # Give FastAPI time to start
-    
-    print("Starting frontend on port 5000...")
-    start_streamlit()
+    try:
+        # Start FastAPI backend
+        backend_process = subprocess.Popen(
+            [sys.executable, "backend/api/document_processor_service.py"],
+            cwd=project_root
+        )
+        print("Started FastAPI backend service...")
+        
+        # Give the backend a moment to start
+        time.sleep(2)
+        
+        # Start Streamlit frontend
+        frontend_process = subprocess.Popen(
+            [sys.executable, "-m", "streamlit", "run", "frontend/main.py"],
+            cwd=project_root
+        )
+        print("Started Streamlit frontend...")
+        
+        # Keep the script running
+        frontend_process.wait()
+        
+    except KeyboardInterrupt:
+        print("\nShutting down services...")
+        frontend_process.terminate()
+        backend_process.terminate()
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error launching services: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    main()
+    launch_services()
