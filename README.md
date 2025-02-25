@@ -24,15 +24,11 @@ A powerful document processing system with Retrieval-Augmented Generation (RAG) 
 
 ## Quick Start
 
-1. Install Initial Dependencies:
-pip install aiohttp anthropic asyncio fastapi httpx mistralai numpy openai pandas pdf2image pillow psutil pydantic pypdf2 pytesseract pytest-mock pytest pytest-asyncio requests scikit-learn sentence-transformers streamlit trafilatura twilio urllib3 uvicorn
-2. Install a Specific Version of mistralai:
-pip install mistralai==0.4.2
-3. Run the Backend Service, on Windows PowerShell:
-$env:PYTHONPATH="."; python backend/api/document_processor_service.py
-4. Run the Streamlit Frontend, on Windows PowerShell:
-$env:PYTHONPATH="."; streamlit run frontend/main.py --server.address 0.0.0.0 --server.port 8501
-5. Access the Application in a Web Browser:
+1. Install Dependencies:
+pip install -r requirements.txt
+2. Launch the app:
+python launch.py 
+3. Access the Application in a Web Browser:
 http://localhost:8501
 
 ## Usage Guide
