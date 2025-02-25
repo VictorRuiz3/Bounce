@@ -13,20 +13,28 @@ def launch_services():
         backend_process = subprocess.Popen(
             [sys.executable, "backend/api/document_processor_service.py"],
             cwd=project_root,
-            env={**os.environ, "PYTHONPATH": project_root}  # Pass PYTHONPATH to subprocess
+            env={**os.environ, "PYTHONPATH": project_root}
         )
-        print("Started FastAPI backend service...")
+        print("Started FastAPI backend service on http://localhost:8002")
         
         # Give the backend a moment to start
         time.sleep(2)
         
-        # Start Streamlit frontend
+        # Start Streamlit frontend with specific port and host
         frontend_process = subprocess.Popen(
-            [sys.executable, "-m", "streamlit", "run", "frontend/main.py"],
+            [
+                sys.executable,
+                "-m", "streamlit",
+                "run", "frontend/main.py",
+                "--server.port=5000",
+                "--server.address=0.0.0.0",
+                "--browser.serverAddress=localhost",
+                "--server.headless=true"
+            ],
             cwd=project_root,
-            env={**os.environ, "PYTHONPATH": project_root}  # Pass PYTHONPATH to subprocess
+            env={**os.environ, "PYTHONPATH": project_root}
         )
-        print("Started Streamlit frontend...")
+        print("Started Streamlit frontend on http://localhost:5000")
         
         # Keep the script running
         frontend_process.wait()
